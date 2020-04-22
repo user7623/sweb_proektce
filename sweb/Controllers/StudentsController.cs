@@ -20,9 +20,28 @@ namespace sweb.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchName, string searchLastName, string searchStudentID)
         {
-            return View(await _context.Student.ToListAsync());
+            var students = from m in _context.Student
+                          select m;
+
+            if (!String.IsNullOrEmpty(searchName))
+            {
+                students = students.Where(s => s.FirstName.Contains(searchName));
+            }
+            if (!String.IsNullOrEmpty(searchLastName))
+            {
+                students = students.Where(s => s.LastName.Contains(searchLastName));
+            }
+            if (!String.IsNullOrEmpty(searchStudentID))
+            {
+
+                students = students.Where(s => s.StudentID.Contains(searchStudentID));
+            }
+
+            return View(await students.ToListAsync());
+
+            //return View(await _context.Student.ToListAsync());
         }
 
         // GET: Students/Details/5

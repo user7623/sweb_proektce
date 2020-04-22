@@ -13,8 +13,8 @@ namespace sweb.Models
         
         public SelectList Semesters { get; set; }
         public string CourseSemester { get; set; }
+        public string SearchSemester { get; set; }
         public string SearchString { get; set; }
-        public string SearchSemestar { get; set; }
         public string SearchPrograma { get; set; }
 
     }

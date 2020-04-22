@@ -20,9 +20,33 @@ namespace sweb.Controllers
         }
 
         // GET: Teachers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchName, string searchLastName, string searchAcademicRank, string searchEducation)
         {
-            return View(await _context.Teacher.ToListAsync());
+
+            var teachers = from m in _context.Teacher
+                          select m;
+
+            if (!String.IsNullOrEmpty(searchName))
+            {
+                teachers = teachers.Where(s => s.FirstName.Contains(searchName));
+            }
+            if (!String.IsNullOrEmpty(searchLastName))
+            {
+                teachers = teachers.Where(s => s.LastName.Contains(searchLastName));
+            }
+            if (!String.IsNullOrEmpty(searchAcademicRank))
+            {
+                teachers = teachers.Where(s => s.AcademicRank.Contains(searchAcademicRank));
+            }
+            if (!String.IsNullOrEmpty(searchEducation))
+            {
+                teachers = teachers.Where(s => s.Degree.Contains(searchEducation));
+            }
+
+
+            return View(await teachers.ToListAsync());
+
+            // return View(await _context.Teacher.ToListAsync());
         }
 
         // GET: Teachers/Details/5
