@@ -18,7 +18,26 @@ namespace sweb.Controllers
         {
             _context = context;
         }
+        public async Task<IActionResult> searchByCourse(string searchCourse)
+        {
+            if(string.IsNullOrEmpty(searchCourse))
+            {
+                return View(await _context.Student.ToListAsync());
+            }
+            var courses = from a in _context.Course
+                          select a;
+            var students = from m in _context.Student
+                           select m;
+            int x = 0;
 
+            Int32.TryParse(searchCourse, out x);
+
+            courses = courses.Where(z => z.Title.Contains(searchCourse));
+            
+            students = students.Where(s => s.Courses.Any(m => m.ID == x));
+
+            return View(await students.ToListAsync());
+        }
         // GET: Students
         public async Task<IActionResult> Index(string searchName, string searchLastName, string searchStudentID)
         {

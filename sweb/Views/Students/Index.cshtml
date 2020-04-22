@@ -4,7 +4,7 @@
     ViewData["Title"] = "Students";
 }
 
-<h1>Index</h1>
+<h1>Students</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -20,7 +20,14 @@
         <input type="submit" value="Filter" />
     </p>
 </form>
-
+<hr />
+<form asp-controller="Students" asp-action="searchByCourse" method="get">
+    <p>
+        Cours ID: <input type="text" name="SearchCourse">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<hr />
 <table class="table">
     <thead>
         <tr>
