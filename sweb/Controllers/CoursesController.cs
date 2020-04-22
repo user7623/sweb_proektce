@@ -20,15 +20,14 @@ namespace sweb.Controllers
         }
 
         // GET: Courses
-        public async Task<IActionResult> Index(string searchSemestar , string searchString, string searchPrograma)
+        public async Task<IActionResult> Index(string searchSemestar , string searchString, string searchPrograma, string searchTeacher)
         {
-            //IQueryable<int> semesterQuery = from m in _context.Course
-            //                                orderby m.Semester
-            //                                select m.Semester;
-
+           
             var courses = from m in _context.Course
                         select m;
-
+            var teachers = from v in _context.Teacher
+                          select v;
+            
             if (!String.IsNullOrEmpty(searchString))
             {
                 courses = courses.Where(s => s.Title.Contains(searchString));
@@ -44,7 +43,15 @@ namespace sweb.Controllers
                 Int32.TryParse(searchSemestar, out x);
                 courses = courses.Where(s => s.Semester == x);
             }
+            if (!String.IsNullOrEmpty(searchTeacher))
+            {
+                int x = 0;
 
+                Int32.TryParse(searchTeacher, out x);
+                courses = courses.Where(s => s.FirstTeacherID == x || s.SecondTeacherID == x);
+                
+            }
+            
 
             return View(await courses.ToListAsync());
             //return View(await _context.Course.ToListAsync());

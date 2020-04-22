@@ -28,7 +28,7 @@ namespace SWEB_app.Models
 
         public int SecondTeacherID { get; set; }
 
-        //public ICollection<Enrollment> Students { get; set; }
+        public ICollection<Enrollment> Students { get; set; }
 
     }
 }
