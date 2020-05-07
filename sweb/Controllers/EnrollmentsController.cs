@@ -33,14 +33,15 @@ namespace sweb.Controllers
                 return NotFound();
             }
 
-            var enrollment = await _context.Enrollment
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var enrollment = from e in _context.Enrollment
+                             select e;
+            enrollment = enrollment.Where(f => f.CourseID == id);
             if (enrollment == null)
             {
                 return NotFound();
             }
 
-            return View(enrollment);
+            return View(await enrollment.ToListAsync());
         }
 
         // GET: Enrollments/Create

@@ -1,54 +1,129 @@
-﻿@model SWEB_app.Models.Teacher
-
+﻿@*@model SWEB_app.Models.Course*@
+@model IEnumerable<SWEB_app.Models.Course>
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "CoursesList";
 }
+<h1>Courses List</h1>
+<table class="table">
+    <thead>
+        <tr>
+            @*.Courses[0]*@
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Credits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Semester)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Programe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EducationLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstTeacherID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondTeacherID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Credits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Semester)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Programe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EducationLevel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstTeacherID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SecondTeacherID)
+                </td>
+                <td>
+                    <a asp-action="Enrolled" asp-route-id="@item.ID">Students enrolled</a>
+                    @*<form asp-controller="Students" asp-action="Details" asp-route="" method="get">
+                        <p>
+                            <input type="submit" value="Students enrolled" />
+                        </p>
+                    </form>*@
+                </td>
 
-<h1>Details</h1>
+            </tr>
+        }
+    </tbody>
+</table>
 
-<div>
-    <h4>Teacher</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Degree)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Degree)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AcademicRank)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AcademicRank)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OfficeNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OfficeNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HireDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HireDate)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+@*@model SWEB_app.Models.Teacher
+
+    @{
+        ViewData["Title"] = "Details";
+    }
+
+    <h1>Details</h1>
+
+    <div>
+        <h4>Teacher</h4>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Degree)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Degree)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.AcademicRank)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.AcademicRank)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.OfficeNumber)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.OfficeNumber)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.HireDate)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.HireDate)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>*@

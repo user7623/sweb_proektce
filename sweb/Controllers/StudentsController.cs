@@ -7,16 +7,102 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SWEB_app.Models;
 using sweb.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using sweb.ViewModels;
 
 namespace sweb.Controllers
 {
     public class StudentsController : Controller
     {
         private readonly swebContext _context;
+        private readonly Microsoft.AspNetCore.Hosting.IWebHostEnvironment he;
+        private readonly IWebHostEnvironment hostEnvironment;
 
-        public StudentsController(swebContext context)
+        public StudentsController(swebContext context, IWebHostEnvironment e, IWebHostEnvironment hostEnvironment)
         {
+            he = e;
             _context = context;
+            this.hostEnvironment = hostEnvironment;
+        }
+        [HttpPost]
+        public async Task<IActionResult> showPicture(string firstName, string lastName, IFormFile pic)
+        {
+            ViewData["fname"] = firstName;
+            if (pic != null)
+            {
+                var filename = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
+                pic.CopyTo(new FileStream(filename, FileMode.Create));
+                ViewData["filelocation"] = "/" + Path.GetFileName(pic.FileName);
+            }
+
+            var selected = await _context.Student.Where(s => s.FirstName.Equals(firstName) && s.LastName.Equals(lastName)).FirstOrDefaultAsync();
+            //(ViewData["filelocation"].ToString());
+            StudentViewModel model = new StudentViewModel();
+            model.Id = selected.ID;
+            model.FirstName = selected.FirstName;
+            model.LastName = selected.LastName;
+            model.Indeks = selected.StudentID;
+            model.EducationLevel = selected.EducationLevel;
+            model.EnrollmentDate = selected.EnrolmentDate;
+            model.CurrentSemester = selected.CurrentSemester;
+            model.AcquiredCredits = selected.AcquiredCredits;
+            if (System.IO.File.Exists(Path.GetFileName(pic.FileName)))
+            {
+                model.filePath = Path.GetFileName(pic.FileName);
+            }
+
+            return View(model);
+            //var student = from s in _context.Student
+            //              select s;
+            //student = student.Where(s => s.FirstName.Equals(firstName) && s.LastName.Equals(lastName));
+            //// [Bind("ID,StudentID,FirstName,LastName,EnrolmentDate,AcquiredCredits,CurrentSemester,EducationLevel")]
+            //String StudentID, FirstName, LastName, EducationLevel, pic;
+
+            //int ID, CurrentSemester, AcquiredCredits;
+
+            //ID = Int32.Parse(student.Select(s => s.ID).ToString());
+            //StudentID = student.Select(s => s.StudentID).ToString();
+            //DateTime EnrolmentDate;
+            //FirstName = firstName;
+            //LastName = lastName;
+            //EducationLevel = student.Select(s => s.EducationLevel).ToString();
+            //pic = ViewData["filelocation"].ToString();
+            //CurrentSemester = Int32.Parse(student.Select(s => s.CurrentSemester).ToString());
+            //AcquiredCredits = Int32.Parse(student.Select(s => s.AcquiredCredits).ToString());
+            //EnrolmentDate = DateTime.Parse(student.Select(s => s.EnrolmentDate).ToString());
+            //Student stud = new Student();
+            //stud.ID = ID;
+            //stud.StudentID = StudentID;
+            //stud.FirstName = FirstName;
+            //stud.LastName = LastName;
+            //stud.EnrolmentDate = EnrolmentDate;
+            //stud.AcquiredCredits = AcquiredCredits;
+            //stud.CurrentSemester = CurrentSemester;
+            //stud.EducationLevel = EducationLevel;
+            //stud.pic = pic;
+            //try
+            //{
+            //    _context.Update(stud);
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!StudentExists(stud.ID))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+        }
+        
+        public async Task<IActionResult> addPicture(int? id)
+        {
+            return View();
         }
         public async Task<IActionResult> searchByCourse(string searchCourse)
         {
@@ -62,23 +148,31 @@ namespace sweb.Controllers
 
             //return View(await _context.Student.ToListAsync());
         }
+        public async Task<IActionResult> Subjects(int? id)
+        {
 
+            var student = from s in _context.Student
+                          select s;
+            student = student.Where(s => s.ID == id);
+            string studentId = student.Select(s => s.StudentID).ToString();
+            var enrollments = from e in _context.Enrollment
+                              select e;
+            enrollments = enrollments.Where(e => e.StudentID.Equals(studentId));
+            return View(await enrollments.ToListAsync());
+        }
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            var cours = from m in _context.Course
+                        select m;
+            cours = cours.Where(c => c.ID == id);
+            string title = cours.Select(c => c.Title).ToString();
+            if (title == null)
             {
                 return NotFound();
             }
 
-            var student = await _context.Student
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-
-            return View(student);
+            return View();
         }
 
         // GET: Students/Create

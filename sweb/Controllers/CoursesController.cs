@@ -58,21 +58,19 @@ namespace sweb.Controllers
         }
 
         // GET: Courses/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string title)
         {
-            if (id == null)
+            if (title == null)
             {
                 return NotFound();
             }
 
-            var course = await _context.Course
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (course == null)
-            {
-                return NotFound();
-            }
-
-            return View(course);
+            var courses = from m in _context.Course
+                          select m;
+            courses = courses.Where(s => s.Title.Contains(title));
+            var students = courses.Select(s => new { students = s.Students });
+           
+            return View(await students.ToListAsync());
         }
 
         // GET: Courses/Create
@@ -180,6 +178,13 @@ namespace sweb.Controllers
         private bool CourseExists(int id)
         {
             return _context.Course.Any(e => e.ID == id);
+        }
+        [HttpGet]
+        private async Task<IActionResult> showStudents()
+        {
+            var students = from m in _context.Student
+                           select m;
+            return View(await students.ToListAsync());
         }
     }
 }

@@ -37,6 +37,7 @@ namespace SWEB_app.Models
         [StringLength(25, MinimumLength = 3)]
         public string EducationLevel { get; set; }
 
+        public string pic { get; set; }
         public ICollection<Enrollment> Courses { get; set; }
 
     }

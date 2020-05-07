@@ -2,7 +2,6 @@ C:\Users\Filip\source\repos\sweb\sweb\bin\Debug\netcoreapp3.1\appsettings.Develo
 C:\Users\Filip\source\repos\sweb\sweb\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\Filip\source\repos\sweb\sweb\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Users\Filip\source\repos\sweb\sweb\bin\Debug\netcoreapp3.1\sweb.exe
-C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\sweb.csprojAssemblyReference.cache
 C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\sweb.RazorAssemblyInfo.cache
 C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\sweb.RazorAssemblyInfo.cs
 C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\sweb.AssemblyInfoInputs.cache
@@ -178,3 +177,12 @@ C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Enroll
 C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Enrollments\Edit.cshtml.g.cs
 C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Enrollments\Index.cshtml.g.cs
 C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Students\searchByCourse.cshtml.g.cs
+C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Home\View.cshtml.g.cs
+C:\Users\Filip\source\repos\sweb\sweb\bin\Debug\netcoreapp3.1\System.Text.Json.dll
+C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Teachers\CoursesList.cshtml.g.cs
+C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Courses\showStudents.cshtml.g.cs
+C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Teachers\Enrolled.cshtml.g.cs
+C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Students\Subjects.cshtml.g.cs
+C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Students\addPicture.cshtml.g.cs
+C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Students\showPicture.cshtml.g.cs
+C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\sweb.csprojAssemblyReference.cache
