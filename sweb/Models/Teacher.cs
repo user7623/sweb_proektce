@@ -28,6 +28,8 @@ namespace SWEB_app.Models
         [StringLength(10, MinimumLength = 3)]
         [Display(Name = "Office number")]
         public string OfficeNumber { get; set; }
+
+        public string pic { get; set; }
         public DateTime HireDate { get; set; }
     }
 }

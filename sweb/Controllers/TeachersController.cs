@@ -36,22 +36,20 @@ namespace sweb.Controllers
                 pic.CopyTo(new FileStream(filename, FileMode.Create));
                 ViewData["filelocation"] = "/" + Path.GetFileName(pic.FileName);
             }
-            var selected = await _context.Teacher.Where(s => s.FirstName.Equals(firstName) && s.LastName.Equals(lastName)).FirstOrDefaultAsync();
-            TeacherViewModel model = new TeacherViewModel();
-            model.Id = selected.ID;
-            model.FirstName = selected.FirstName;
-            model.LastName = selected.LastName;
-            model.Degree = selected.Degree;
-            model.AcademicRank = selected.AcademicRank;
-            model.HireDate = selected.HireDate;
-            model.OfficeNumber = selected.OfficeNumber;
+            //napravi kopija od izbraniot student
+            //var selected = await _context.Student.Where(s => s.FirstName.Equals(firstName) && s.LastName.Equals(lastName)).FirstOrDefaultAsync();
+            var selected = await _context.Teacher.FirstOrDefaultAsync(s => s.FirstName.Equals(firstName) && s.LastName.Equals(lastName));
+            selected.pic = "/" + Path.GetFileName(pic.FileName);
 
-            if (System.IO.File.Exists(Path.GetFileName(pic.FileName)))
-            {
-                model.filePath = Path.GetFileName(pic.FileName);
-            }
+            //vnesi go vo databaza
+            //_context.Add(selected);
+            _context.Update(selected);
+            await _context.SaveChangesAsync();
+            var pom = from p in _context.Teacher
+                      select p;
+            pom = pom.Where(p => p.ID == selected.ID);
+            return View();
 
-            return View(model);
         }
         public async Task<IActionResult> addPicture(int? id)
         {

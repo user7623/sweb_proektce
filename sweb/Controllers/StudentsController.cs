@@ -36,24 +36,33 @@ namespace sweb.Controllers
                 pic.CopyTo(new FileStream(filename, FileMode.Create));
                 ViewData["filelocation"] = "/" + Path.GetFileName(pic.FileName);
             }
+            //napravi kopija od izbraniot student
+            //var selected = await _context.Student.Where(s => s.FirstName.Equals(firstName) && s.LastName.Equals(lastName)).FirstOrDefaultAsync();
+            var selected = await _context.Student.FirstOrDefaultAsync(s => s.FirstName.Equals(firstName) && s.LastName.Equals(lastName));
+            selected.pic = "/" + Path.GetFileName(pic.FileName);
 
-            var selected = await _context.Student.Where(s => s.FirstName.Equals(firstName) && s.LastName.Equals(lastName)).FirstOrDefaultAsync();
-            //(ViewData["filelocation"].ToString());
-            StudentViewModel model = new StudentViewModel();
-            model.Id = selected.ID;
-            model.FirstName = selected.FirstName;
-            model.LastName = selected.LastName;
-            model.Indeks = selected.StudentID;
-            model.EducationLevel = selected.EducationLevel;
-            model.EnrollmentDate = selected.EnrolmentDate;
-            model.CurrentSemester = selected.CurrentSemester;
-            model.AcquiredCredits = selected.AcquiredCredits;
-            if (System.IO.File.Exists(Path.GetFileName(pic.FileName)))
-            {
-                model.filePath = Path.GetFileName(pic.FileName);
-            }
+            //vnesi go vo databaza
+            //_context.Add(selected);
+            _context.Update(selected);
+            await _context.SaveChangesAsync();
+            var pom = from p in _context.Student
+                      select p;
+            pom = pom.Where(p => p.ID == selected.ID);
+            return View();
 
-            return View(model);
+            //StudentViewModel model = new StudentViewModel();
+            //model.Id = selected.ID;
+            //model.FirstName = selected.FirstName;
+            //model.LastName = selected.LastName;
+            //model.Indeks = selected.StudentID;
+            //model.EducationLevel = selected.EducationLevel;
+            //model.EnrollmentDate = selected.EnrolmentDate;
+            //model.CurrentSemester = selected.CurrentSemester;
+            //model.AcquiredCredits = selected.AcquiredCredits;
+            //if (System.IO.File.Exists(Path.GetFileName(pic.FileName)))
+            //{
+            //    model.filePath = Path.GetFileName(pic.FileName);
+            //}
             //var student = from s in _context.Student
             //              select s;
             //student = student.Where(s => s.FirstName.Equals(firstName) && s.LastName.Equals(lastName));
@@ -99,7 +108,7 @@ namespace sweb.Controllers
             //    }
             //}
         }
-        
+
         public async Task<IActionResult> addPicture(int? id)
         {
             return View();
