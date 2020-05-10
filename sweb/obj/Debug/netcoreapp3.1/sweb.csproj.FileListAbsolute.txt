@@ -187,3 +187,4 @@ C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Studen
 C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Students\showPicture.cshtml.g.cs
 C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Teachers\addPicture.cshtml.g.cs
 C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\Razor\Views\Teachers\showPicture.cshtml.g.cs
+C:\Users\Filip\source\repos\sweb\sweb\obj\Debug\netcoreapp3.1\sweb.csprojAssemblyReference.cache
