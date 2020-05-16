@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using sweb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace sweb
 {
@@ -32,13 +34,7 @@ namespace sweb
                     options.UseSqlServer(Configuration.GetConnectionString("swebContext")));
             // Add Cors services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-            //    .AddJsonOptions(x =>x
-            //    {
-
-            //    x.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
-            //    x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            //    x.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
-            //})
+            
             ;
         }
 
@@ -65,9 +61,10 @@ namespace sweb
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
